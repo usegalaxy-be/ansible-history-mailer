@@ -21,18 +21,11 @@ history_mailer_mail_base_url: https://mail.galaxy-cat.genome.edu.au/api/v1/
 history_mailer_mail_api_key: 'xBBVeiBx'
 
 history_mailer_cron_jobs:
-- name: warn_and_delete
-  weekday: "1"
-  hour: "12"
-  options:
-    - production
-    - warn
-    - delete
-- name: purge_histories
-  weekday: "0"
-  hour: "12"
-  options:
-    - production
-    - purge
+  warn_and_delete:
+    weekday: "1"
+    hour: "12"
+  purge_histories:
+    weekday: "0"
+    hour: "12"
 ```
 

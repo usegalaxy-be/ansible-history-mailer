@@ -1,22 +1,42 @@
-- name: Write job script
+- name: Write 'warn and delete' job script
   copy:
-    dest: "{{ history_mailer_job_script_dir }}/{{ hm_cron_entry.name }}.sh"
+    dest: "{{ history_mailer_job_script_dir }}/warn_and_delete.sh"
     content: |
         {{ history_mailer_venv }}/bin/python \
         {{ history_mailer_code_dir }}/history_mailer.py \
-        {% for option in hm_cron_entry.options|d([]) %}
-        --{{ option }} \
-        {% endfor %}
-        > {{ history_mailer_log_dir }}/{{ hm_cron_entry.name }}_`date +%Y%m%d`.log 2>&1
+        --production \
+        --warn \
+        --delete \
+        --notify \
+        > {{ history_mailer_log_dir }}/warn_and_delete_`date +%Y%m%d`.log 2>&1
 
-- name: Set up history mailer cron job
+- name: Set up cron job for warning script
   cron:
     disabled: "{{ not history_mailer_enable_cron_jobs }}"
-    state: "{{ hm_cron_entry.state|d('present') }}"
-    name: "history_mailer: {{ hm_cron_entry.name }}"
+    name: "history_mailer: warn and delete"
     user: "{{ history_mailer_user }}"
-    weekday: "{{ hm_cron_entry.weekday }}" # TODO: Sanity check of cron settings?
-    hour: "{{ hm_cron_entry.hour|d('11') }}"
-    minute: "{{ hm_cron_entry.minute|d('00') }}"
-    job: "bash {{ history_mailer_job_script_dir }}/{{ hm_cron_entry.name }}.sh"
-        
+    weekday: "{{ history_mailer_cron_jobs.warn_and_delete.weekday }}"
+    hour: "{{ history_mailer_cron_jobs.warn_and_delete.hour|d('11') }}"
+    minute: "{{ history_mailer_cron_jobs.warn_and_delete.minute|d('00') }}"
+    job: "bash {{ history_mailer_job_script_dir }}/warn_and_delete.sh"
+
+- name: Write 'purge histories' job script
+  copy:
+    dest: "{{ history_mailer_job_script_dir }}/purge_histories.sh"
+    content: |
+        {{ history_mailer_venv }}/bin/python \
+        {{ history_mailer_code_dir }}/history_mailer.py \
+        --production \
+        --purge \
+        --notify \
+        > {{ history_mailer_log_dir }}/purge_histories_`date +%Y%m%d`.log 2>&1
+
+- name: Set up cron job for purge script
+  cron:
+    disabled: "{{ not history_mailer_enable_cron_jobs }}"
+    name: "history_mailer: purge histories"
+    user: "{{ history_mailer_user }}"
+    weekday: "{{ history_mailer_cron_jobs.purge_histories.weekday }}"
+    hour: "{{ history_mailer_cron_jobs.purge_histories.hour|d('12') }}"
+    minute: "{{ history_mailer_cron_jobs.purge_histories.minute|d('00') }}"
+    job: "bash {{ history_mailer_job_script_dir }}/purge_histories.sh"

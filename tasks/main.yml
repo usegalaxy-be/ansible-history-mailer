@@ -40,9 +40,6 @@
       loop_var: hm_db_filename
   - name: Set up cron jobs
     include_tasks: cron.yml
-    loop: "{{ history_mailer_cron_jobs }}"
-    loop_control:
-      loop_var: hm_cron_entry
     when: history_mailer_cron_jobs is defined
   become: true
   become_user: "{{ history_mailer_user }}"
