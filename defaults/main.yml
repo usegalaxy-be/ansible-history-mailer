@@ -10,8 +10,8 @@ history_mailer_commit_id: main
 
 # History mailer configuration
 history_mailer_warn_days: 365
-history_mailer_delete_days: 385
-history_mailer_email_days_threshold: 6
+history_mailer_delete_days: 379
+history_mailer_email_days_threshold: 14
 history_mailer_purge_days_threshold: 6
 
 history_mailer_staging_local_db_file: "{{ history_mailer_dir }}/staging_hm.sqlite"
@@ -19,6 +19,10 @@ history_mailer_production_local_db_file: "{{ history_mailer_dir }}/prod_hm.sqlit
 
 history_mailer_files: []
 
-history_mailer_use_postal: false # Must be true for history mailer to work
+history_mailer_use_mail_api: false # Must be true for history mailer to work
 
 history_mailer_enable_cron_jobs: false # When not enabled, cron jobs will be entered in crontab in a disabled state
+
+history_mailer_mail_test_user:
+  username: "kucing"
+  email: "kucing@email.edu.au"

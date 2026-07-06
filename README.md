@@ -17,8 +17,8 @@ history_mailer_purge_days_threshold: 14
 history_mailer_galaxy_url: https://galaxy-cat.genome.edu.au
 history_mailer_galaxy_api_key: 'aeee1234'
 
-history_mailer_postal_base_url: https://mail.galaxy-cat.genome.edu.au/api/v1/
-history_mailer_postal_api_key: 'xBBVeiBx'
+history_mailer_mail_base_url: https://mail.galaxy-cat.genome.edu.au/api/v1/
+history_mailer_mail_api_key: 'xBBVeiBx'
 
 history_mailer_cron_jobs:
 - name: warn_and_delete

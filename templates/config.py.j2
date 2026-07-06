@@ -24,10 +24,10 @@ GALAXY_GROUP_EP="groups/"
 GALAXY_GROUP_USER_EP="/users"
 GALAXY_KEEPLIST_GROUP="{{ history_mailer_galaxy_keeplist_group|d('') }}"
 
-# Postal settings
-{% if history_mailer_use_postal %}
-MAIL_API="{{ history_mailer_postal_api_key }}"
-MAIL_BASEURL="{{ history_mailer_postal_base_url }}"
+# Mail API settings
+{% if history_mailer_use_mail_api %}
+MAIL_API="{{ history_mailer_mail_api_key }}"
+MAIL_BASEURL="{{ history_mailer_mail_base_url }}"
 {% endif %}
 MAIL_FROM="{{ history_mailer_mail_from|d('') }}"  # "Galaxy <no-reply@{{ history_mailer_galaxy_url }}>"
 MAIL_REPLYTO="{{ history_mailer_mail_replyto|d('') }}"
@@ -36,7 +36,7 @@ MAIL_SUBJECT_WARNING="Galaxy: Upcoming Deletion Notification"
 MAIL_SUBJECT_DELETION="Galaxy: Deletion Notification"
 MAIL_TEMPLATE_WARNING="{{ history_mailer_email_template_warning|d('templates/email_warning.html') }}"
 MAIL_TEMPLATE_DELETION="{{ history_mailer_email_template_deletion|d('templates/email_deletion.html') }}"
-
+MAIL_TEST_USER={"username": "{{ history_mailer_mail_test_user.username}}", "email": "{{ history_mailer_mail_test_user.email}}"}
 
 # Slack settings
 SLACK_TOKEN="{{ history_mailer_slack_token|d('') }}"
