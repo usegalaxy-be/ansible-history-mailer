@@ -31,7 +31,7 @@ MAIL_BASEURL="{{ history_mailer_mail_base_url }}"
 {% endif %}
 MAIL_FROM="{{ history_mailer_mail_from|d('') }}"  # "Galaxy <no-reply@{{ history_mailer_galaxy_url }}>"
 MAIL_REPLYTO="{{ history_mailer_mail_replyto|d('') }}"
-MAIL_SENDMESSAGE="send/message"
+MAIL_SENDMESSAGE="email/send"
 MAIL_SUBJECT_WARNING="Galaxy: Upcoming Deletion Notification"
 MAIL_SUBJECT_DELETION="Galaxy: Deletion Notification"
 MAIL_TEMPLATE_WARNING="{{ history_mailer_email_template_warning|d('templates/email_warning.html') }}"
