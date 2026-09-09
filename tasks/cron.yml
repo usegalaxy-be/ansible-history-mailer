@@ -4,10 +4,7 @@
     content: |
         {{ history_mailer_venv }}/bin/python \
         {{ history_mailer_code_dir }}/history_mailer.py \
-        --production \
-        --warn \
-        --delete \
-        --notify \
+        {{ history_mailer_warn_and_delete_flags }} \
         > {{ history_mailer_log_dir }}/warn_and_delete_`date +%Y%m%d`.log 2>&1
 
 - name: Set up cron job for warning script
@@ -26,9 +23,7 @@
     content: |
         {{ history_mailer_venv }}/bin/python \
         {{ history_mailer_code_dir }}/history_mailer.py \
-        --production \
-        --purge \
-        --notify \
+        {{ history_mailer_purge_flags }} \
         > {{ history_mailer_log_dir }}/purge_histories_`date +%Y%m%d`.log 2>&1
 
 - name: Set up cron job for purge script
