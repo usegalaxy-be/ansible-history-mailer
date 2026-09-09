@@ -21,6 +21,17 @@ history_mailer_files: []
 
 history_mailer_use_mail_api: false # Must be true for history mailer to work
 
+# Which mail backend history_mailer.py uses: "smtp2go" (default, see
+# history_mailer_use_mail_api/mail_base_url/mail_api_key above) or "smtp" (plain
+# SMTP via smtplib, uses the four vars below instead). Requires the
+# history-mailer MAIL_BACKEND support (see usegalaxy-au/history-mailer PR
+# adding it) - a no-op on older checkouts without that change.
+history_mailer_mail_backend: smtp2go
+history_mailer_smtp_server: ""
+history_mailer_smtp_port: 465
+history_mailer_smtp_username: ""
+history_mailer_smtp_password: ""
+
 history_mailer_enable_cron_jobs: false # When not enabled, cron jobs will be entered in crontab in a disabled state
 
 history_mailer_mail_test_user:

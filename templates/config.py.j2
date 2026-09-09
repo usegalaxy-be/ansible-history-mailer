@@ -24,11 +24,23 @@ GALAXY_GROUP_EP="groups/"
 GALAXY_GROUP_USER_EP="/users"
 GALAXY_KEEPLIST_GROUP="{{ history_mailer_galaxy_keeplist_group|d('') }}"
 
-# Mail API settings
+# Mail backend: which of history_mailer.py's send functions is used.
+MAIL_BACKEND="{{ history_mailer_mail_backend|d('smtp2go') }}"
+
+# Mail API settings (MAIL_BACKEND="smtp2go")
 {% if history_mailer_use_mail_api %}
 MAIL_API="{{ history_mailer_mail_api_key }}"
 MAIL_BASEURL="{{ history_mailer_mail_base_url }}"
 {% endif %}
+
+# Plain SMTP settings (MAIL_BACKEND="smtp")
+{% if history_mailer_mail_backend|d('smtp2go') == 'smtp' %}
+SMTP_SERVER="{{ history_mailer_smtp_server|d('') }}"
+SMTP_PORT={{ history_mailer_smtp_port|d(465) }}
+SMTP_USERNAME="{{ history_mailer_smtp_username|d('') }}"
+SMTP_PASSWORD="{{ history_mailer_smtp_password|d('') }}"
+{% endif %}
+
 MAIL_FROM="{{ history_mailer_mail_from|d('') }}"  # "Galaxy <no-reply@{{ history_mailer_galaxy_url }}>"
 MAIL_REPLYTO="{{ history_mailer_mail_replyto|d('') }}"
 MAIL_SENDMESSAGE="email/send"
