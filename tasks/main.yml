@@ -22,10 +22,13 @@
       virtualenv: "{{ history_mailer_venv }}"
     environment:
       VIRTUAL_ENV: "{{ history_mailer_venv }}"
+  # no_log: config.py holds the Galaxy admin API key and (with the SMTP backend)
+  # a mail password in plaintext - without this, --diff (or -vvv) prints them.
   - name: Template config file
     template:
       src: config.py.j2
       dest: "{{ history_mailer_code_dir }}/config.py"
+    no_log: true
   - name: Copy history mailer files
     copy:
       src: "{{ item.src }}"
