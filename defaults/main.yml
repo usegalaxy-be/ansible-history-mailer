@@ -34,6 +34,12 @@ history_mailer_smtp_password: ""
 
 history_mailer_enable_cron_jobs: false # When not enabled, cron jobs will be entered in crontab in a disabled state
 
+# CLI flags each cron job passes to history_mailer.py. Overridable for a staged
+# rollout (e.g. --dryrun first, then --warn on its own before adding --delete) -
+# defaults reproduce the previous hardcoded behavior exactly.
+history_mailer_warn_and_delete_flags: "--production --warn --delete --notify"
+history_mailer_purge_flags: "--production --purge --notify"
+
 history_mailer_mail_test_user:
   username: "kucing"
   email: "kucing@email.edu.au"
