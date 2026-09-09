@@ -10,6 +10,9 @@
       VIRTUAL_ENV: "{{ history_mailer_venv }}"
       HISTORY_MAILER_DB: "{{ hm_db_filename }}"
     when: not hm_db_stat.stat.exists
+  # Runs every time, not just on first creation: `alembic upgrade head` is a no-op
+  # when already at head, so this is the standard idempotent way to pick up any
+  # migrations added since the db was first created.
   - name: Run migrations
     command:
       cmd: "{{ history_mailer_venv }}/bin/alembic upgrade head"
@@ -17,5 +20,3 @@
     environment:
       VIRTUAL_ENV: "{{ history_mailer_venv }}"
       HISTORY_MAILER_DB: "{{ hm_db_filename }}"
-    when: not hm_db_stat.stat.exists
- # TODO: There should be something here for running migrations when the database does exist
